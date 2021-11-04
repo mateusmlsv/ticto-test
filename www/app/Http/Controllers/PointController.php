@@ -56,4 +56,25 @@ class PointController extends Controller
             ->route('points.index')
             ->with('message', 'Point updated successfully');
     }
+
+    public function show($id)
+    {
+        if (!$point = Point::find($id)) {
+            return redirect()->back();
+        }
+        return view('func.points.show', compact('point'));
+    }
+
+    public function destroy($id)
+    {
+        if (!$point = Point::find($id)) {
+            return redirect()->back();
+        }
+
+        $point->delete();
+
+        return redirect()
+            ->route('points.index')
+            ->with('message', 'Point deleted successfully');
+    }
 }
