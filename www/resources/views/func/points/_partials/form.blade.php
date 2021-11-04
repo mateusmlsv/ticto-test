@@ -7,6 +7,6 @@
 @endif
 
 @csrf
-<input type="datetime-local" name="entry" id="entry" placeholder="Entry" value="{{ $ponit->entry ?? old('entry') }}" class="block w-full p-3 mt-2 text-gray-700 bg-gray-200 appearance-none focus:outline-none focus:bg-gray-300 focus:shadow-inner">
-<input type="datetime-local" name="exit" id="exit" placeholder="Exit" value="{{ $ponit->exit ?? old('exit') }}" class="block w-full p-3 mt-2 text-gray-700 bg-gray-200 appearance-none focus:outline-none focus:bg-gray-300 focus:shadow-inner">
-<button type="submit" class="w-full py-3 mt-6 font-medium tracking-widest text-white uppercase bg-black shadow-lg focus:outline-none hover:bg-gray-900 hover:shadow-none">Sumit new point</button>
+<input type="datetime-local" name="entry" id="entry" placeholder="Entry" value="{{ $points->entry ?? old('entry') }}" class="block w-full p-3 mt-2 text-gray-700 bg-gray-200 appearance-none focus:outline-none focus:bg-gray-300 focus:shadow-inner">
+<input type="datetime-local" name="exit" id="exit" placeholder="Exit" value="{{ $points->exit ?? old('exit') }}" class="block w-full p-3 mt-2 text-gray-700 bg-gray-200 appearance-none focus:outline-none focus:bg-gray-300 focus:shadow-inner">
+<button type="submit" class="w-full py-3 mt-6 font-medium tracking-widest text-white uppercase bg-black shadow-lg focus:outline-none hover:bg-gray-900 hover:shadow-none">Sumit point</button>
