@@ -3,13 +3,13 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreUpdateUser;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\Rules;
 
 class RegisteredUserController extends Controller
 {
@@ -31,34 +31,14 @@ class RegisteredUserController extends Controller
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(Request $request)
+    public function store(StoreUpdateUser $request)
     {
-        $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'birthday' => ['required', 'date'],
-            'cpf' => ['required', 'string', 'unique:users'],
-            'cep' => ['required', 'string'],
-            'address' => ['required', 'string'],
-            'district' => ['required', 'string'],
-            'city' => ['required', 'string'],
-            'number' => ['required', 'string']
-        ]);
+        $data = $request->all();
 
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'birthday' => $request->birthday,
-            'cpf' => $request->cpf,
-            'cep' => $request->cep,
-            'address' => $request->address,
-            'district' => $request->district,
-            'city' => $request->city,
-            'number' => $request->number,
-            'admin' => $request->admin ? true : false
-        ]);
+        $data['password'] = Hash::make($data['password']);
+        $data['admin'] = $data['admin'] ? true : false;
+
+        $user = User::create($data);
 
         dd($user);
 
