@@ -36,7 +36,7 @@ class RegisteredUserController extends Controller
         $data = $request->all();
 
         $data['password'] = Hash::make($data['password']);
-        $data['admin'] = $data['admin'] ? true : false;
+        $data['admin'] = isset($data['admin']) ? true : false;
 
         $user = User::create($data);
 

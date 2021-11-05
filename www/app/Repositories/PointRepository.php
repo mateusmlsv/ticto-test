@@ -18,6 +18,11 @@ class PointRepository
         return $this->point->latest()->paginate();
     }
 
+    public function userOnly($userId)
+    {
+        return $this->point->where('user_id', $userId)->latest()->paginate();
+    }
+
     public function find($id)
     {
         return $this->point->find($id);

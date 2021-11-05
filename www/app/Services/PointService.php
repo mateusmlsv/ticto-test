@@ -16,6 +16,9 @@ class PointService
 
     public function index()
     {
+        if (!Auth::user()->admin) {
+            return $this->pointRepository->userOnly(Auth::user()->id);
+        }
         return $this->pointRepository->all();
     }
 
