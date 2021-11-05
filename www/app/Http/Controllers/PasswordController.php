@@ -16,7 +16,7 @@ class PasswordController extends Controller
     }
     public function edit($id)
     {
-        if (!$user = User::find($id)) {
+        if (!$user = $this->passwordService->edit($id)) {
             return redirect()->back();
         }
         return view('func.password.edit', compact('user'));

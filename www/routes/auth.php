@@ -10,12 +10,17 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/register', [RegisteredUserController::class, 'create'])
-    ->middleware(['auth'])
-    ->name('register');
-
-Route::post('/register', [RegisteredUserController::class, 'store'])
-    ->middleware(['auth']);
+Route::prefix('employee')->middleware(['auth', 'isAdmin'])->group(function () {
+    Route::any('/search', [RegisteredUserController::class, 'search'])->name('employee.search');
+    Route::get('/register', [RegisteredUserController::class, 'create'])->name('register');
+    Route::post('/register', [RegisteredUserController::class, 'store']);
+    Route::get('/create', [RegisteredUserController::class, 'create'])->name('employee.create');
+    Route::put('/{id}', [RegisteredUserController::class, 'update'])->name('employee.update');
+    Route::get('/edit/{id}', [RegisteredUserController::class, 'edit'])->name('employee.edit');
+    Route::delete('/{id}', [RegisteredUserController::class, 'destroy'])->name('employee.destroy');
+    Route::get('/{id}', [RegisteredUserController::class, 'show'])->name('employee.show');
+    Route::get('/', [RegisteredUserController::class, 'index'])->name('employee.index');
+});
 
 Route::get('/', [AuthenticatedSessionController::class, 'create'])
     ->middleware('guest')

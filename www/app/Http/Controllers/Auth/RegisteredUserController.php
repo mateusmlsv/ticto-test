@@ -4,15 +4,24 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUpdateUser;
-use App\Models\User;
-use App\Providers\RouteServiceProvider;
-use Illuminate\Auth\Events\Registered;
+use App\Services\UserService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 
 class RegisteredUserController extends Controller
 {
+    private $userService;
+
+    public function __construct(UserService $userService)
+    {
+        $this->userService = $userService;
+    }
+
+    public function index()
+    {
+        $users = $this->userService->all();
+
+        return view('func.employee.index', compact('users'));
+    }
     /**
      * Display the registration view.
      *
@@ -20,7 +29,7 @@ class RegisteredUserController extends Controller
      */
     public function create()
     {
-        return view('auth.register');
+        return view('func.employee.create');
     }
 
     /**
@@ -33,19 +42,22 @@ class RegisteredUserController extends Controller
      */
     public function store(StoreUpdateUser $request)
     {
-        $data = $request->all();
+        $this->userService->create($request->all());
 
-        $data['password'] = Hash::make($data['password']);
-        $data['admin'] = isset($data['admin']) ? true : false;
+        return redirect()
+            ->route('employee.index');
+    }
 
-        $user = User::create($data);
+    public function edit($id)
+    {
+        if (!$user = $this->userService->find($id)) {
+            return redirect()->back();
+        }
+        return view('func.employee.edit', compact('user'));
+    }
 
-        dd($user);
-
-        event(new Registered($user));
-
-        Auth::login($user);
-
-        return redirect(RouteServiceProvider::HOME);
+    public function update(Request $request, $id)
+    {
+        dd($request->all());
     }
 }

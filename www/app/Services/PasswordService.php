@@ -7,6 +7,14 @@ use Illuminate\Support\Facades\Hash;
 
 class PasswordService
 {
+    public function edit($userId)
+    {
+        if (!$user = User::find($userId)) {
+            return false;
+        }
+        return $user;
+    }
+
     public function update($userId, $data)
     {
         if (!$user = User::find($userId)) {

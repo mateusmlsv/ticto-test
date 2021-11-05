@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>@yield('title') - {{ config('app.name') }}</title>
+    <title>@yield('title') - Point Controller</title>
 
     <link rel="stylesheet" href="{{ url('css/app.css') }}">
 </head>
@@ -22,7 +22,11 @@
         <div class="w-full flex-grow lg:flex lg:items-center lg:w-auto hidden lg:block pt-6 lg:pt-0" id="nav-content">
             <ul class="list-reset lg:flex justify-end flex-1 items-center">
                 <li class="mr-3">
-                    <a class="inline-block py-2 px-4 text-white no-underline" href="#">{{ Auth::user()->name }}</a>
+                    <a class="inline-block py-2 px-4 text-white no-underline" href="{{ route('password.edit', Auth::user()->id) }}">{{ Auth::user()->name }}</a>
+                    <a class="inline-block py-2 px-4 text-white no-underline" href="{{ route('points.index') }}">{{ __('Point Controller') }}</a>
+                    @if (Auth::user()->admin)
+                    <a class="inline-block py-2 px-4 text-white no-underline" href="{{ route('employee.index') }}">{{ __('Employees') }}</a>
+                    @endif
                 </li>
                 <li class="mr-3">
                     <form method="POST" action="{{ route('logout') }}">
