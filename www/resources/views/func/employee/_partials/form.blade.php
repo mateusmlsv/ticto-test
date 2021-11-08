@@ -11,9 +11,9 @@
 
 <input type="email" name="email" id="email" placeholder="Email" value="{{ $user->email ?? old('email')}}" required class="block w-full p-3 mt-2 text-gray-700 bg-gray-200 appearance-none focus:outline-none focus:bg-gray-300 focus:shadow-inner">
 
-<input type="password" name="password" id="password" placeholder="Password" @if(!$user) required @endif autocomplete="new-password" class="block w-full p-3 mt-2 text-gray-700 bg-gray-200 appearance-none focus:outline-none focus:bg-gray-300 focus:shadow-inner">
+<input type="password" name="password" id="password" placeholder="Password" @if(!($user ?? null)) required @endif autocomplete="new-password" class="block w-full p-3 mt-2 text-gray-700 bg-gray-200 appearance-none focus:outline-none focus:bg-gray-300 focus:shadow-inner">
 
-<input type="password" name="password_confirmation" id="password_confirmation" placeholder="Confirm password" @if(!$user) required @endif class="block w-full p-3 mt-2 text-gray-700 bg-gray-200 appearance-none focus:outline-none focus:bg-gray-300 focus:shadow-inner">
+<input type="password" name="password_confirmation" id="password_confirmation" placeholder="Confirm password" @if(!($user ?? null)) required @endif class="block w-full p-3 mt-2 text-gray-700 bg-gray-200 appearance-none focus:outline-none focus:bg-gray-300 focus:shadow-inner">
 
 <input type="text" name="cpf" id="cpf" placeholder="CPF" value="{{ $user->cpf ?? old('cpf')}}" required class="block w-full p-3 mt-2 text-gray-700 bg-gray-200 appearance-none focus:outline-none focus:bg-gray-300 focus:shadow-inner">
 
