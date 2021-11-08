@@ -9,7 +9,7 @@ Como executar o projeto
     cd /ticto-test
     docker-compose up -d --build
     docker exec -it ticto_php /bin/bash
-    compose install
+    composer install
     npm install
     php artisan migrate
     php artisan db:seed
