@@ -10,5 +10,6 @@
         @method('put')
         @include('func.employee._partials.form')
     </form>
+    <script src="{{ asset('js/cep.js') }}" defer></script>
 </div>
 @endsection
