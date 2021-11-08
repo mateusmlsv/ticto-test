@@ -58,6 +58,31 @@ class RegisteredUserController extends Controller
 
     public function update(Request $request, $id)
     {
-        dd($request->all());
+        if (!$this->userService->update($id, $request->all())) {
+            return redirect()->back();
+        }
+
+        return redirect()
+            ->route('employee.index')
+            ->with('message', 'Employee updated successfully');
+    }
+
+    public function show($id)
+    {
+        if (!$user = $this->userService->find($id)) {
+            return redirect()->back();
+        }
+        return view('func.employee.show', compact('user'));
+    }
+
+    public function destroy($id)
+    {
+        if (!$this->userService->destroy($id)) {
+            return redirect()->back();
+        }
+
+        return redirect()
+            ->route('employee.index')
+            ->with('message', 'Employee deleted successfully');
     }
 }

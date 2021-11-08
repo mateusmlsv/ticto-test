@@ -31,4 +31,28 @@ class UserService
 
         return $this->userRepository->create($data);
     }
+
+    public function update($id, $data)
+    {
+        if (!$user = $this->find($id)) {
+            return false;
+        }
+
+        $data['password'] ? $data['password'] = Hash::make($data['password']) : null;
+        if (!$data['password']) {
+            unset($data['password']);
+        }
+        $data['admin'] = isset($data['admin']) ? true : false;
+
+        return $user->update($data);
+    }
+
+    public function destroy($id)
+    {
+        if (!$user = $this->find($id)) {
+            return false;
+        }
+
+        return $user->delete();
+    }
 }
